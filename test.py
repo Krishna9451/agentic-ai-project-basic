@@ -57,8 +57,21 @@ def ask_ai(question):
         "role": "user",
         "content": question
     })
+    
+    messages = [
+       {
+        "role": "system",
+        "content": """
+        You are a helpful AI personal assistant.
 
-    messages = conversation_history
+        Rules:
+        1. If the user asks for today's date, always call get_current_date.
+        2. If the user asks for the current time, always call get_current_time.
+        3. Never guess the current date or time.
+        4. Use the tool result to answer the user.
+        """
+       }
+     ] + conversation_history
 
     payload = {
         "model": MODEL,
